@@ -1,0 +1,19 @@
+{
+  "name": "gulp-lithe",
+  "version": "0.0.1",
+  "description": "gulp plugin for lithe",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "lithe": "^0.3.4",
+    "through-gulp": "^0.3.8"
+  }
+}
