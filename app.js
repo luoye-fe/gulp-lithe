@@ -32,24 +32,30 @@ var main = function(options) {
     }
 
     var stream = through(function(file, encoding, callback) {
-
         var requires;
+        var _this = this;
+
         file.history.forEach(function(f) {
             requires = tool.findJsAllrequires(f, [], config.filter);
         });
-
         requires.push(file.history[0]);
 
         var result = '';
-        for (var i = 0; i < requires.length; i++) {
-            result += fs.readFileSync(requires[i], 'utf-8');
-        }
+        (function() {
+            var arg = arguments;
+            if (requires.length == 0) {
+                file.contents = new Buffer(result);
+                _this.push(file);
+                callback();
+                return;
+            }
+            fs.readFile(requires[0], 'utf-8', function(err, data) {
+                result += data;
+                requires = requires.slice(1);
+                arg.callee();
+            });
+        })()
 
-        file.contents = new Buffer(result);
-
-        this.push(file);
-
-        callback();
     }, function(callback) {
         callback();
     });
