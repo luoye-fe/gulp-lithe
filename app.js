@@ -30,6 +30,9 @@ var main = function(options) {
     if (config.alias) {
         litheOptions.alias = config.alias;
     }
+    if (config.publicdeps) {
+        litheOptions.publicdeps = Object.keys(config.publicdeps);
+    }
 
     var stream = through(function(file, encoding, callback) {
         var requires;
@@ -39,6 +42,16 @@ var main = function(options) {
             requires = tool.findJsAllrequires(f, [], config.filter);
         });
         requires.push(file.history[0]);
+
+        if (litheOptions.publicdeps) {
+            litheOptions.publicdeps.forEach(function(pd) {
+                requires.forEach(function(rd) {
+                    if (rd.replace(pd, "").length != rd.length) {
+                        requires.splice(requires.indexOf(rd), 1);
+                    }
+                });
+            });
+        }
 
         var result = '';
         (function() {
@@ -64,3 +77,5 @@ var main = function(options) {
 };
 
 module.exports = main;
+exports.prejs = module.exports.prejs = require('./prejs/prejs.js');
+exports.precss = module.exports.precss= require('./precss/precss.js');
