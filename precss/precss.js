@@ -1,5 +1,5 @@
 /*
- * desc:判断CSS内部引用的图片文件是否有修改，若有则修改时间戳后缀，若无则使用旧的。
+ * desc:脜脨露脧CSS脛脷虏驴脪媒脫脙碌脛脥录脝卢脦脛录镁脢脟路帽脫脨脨脼赂脛拢卢脠么脫脨脭貌脨脼赂脛脢卤录盲麓脕潞贸脳潞拢卢脠么脦脼脭貌脢鹿脫脙戮脡碌脛隆拢
  * author:yanglang
  * time:2015.03.22
  */
@@ -33,13 +33,13 @@ var main = function() {
                         continue;
                     if (fs.existsSync(imgFile)) {
                         var stat = fs.statSync(imgFile);
-                        //获取图片文件修改时间
+                        //禄帽脠隆脥录脝卢脦脛录镁脨脼赂脛脢卤录盲
                         var mTime = stat.mtime.getTime();
-                        //判断json文件里是否已记录此文件的修改时间
+                        //脜脨露脧json脦脛录镁脌茂脢脟路帽脪脩录脟脗录麓脣脦脛录镁碌脛脨脼赂脛脢卤录盲
                         if(md5FileJson[imgFile]){
-                            //判断旧修改时间与新修改时间是否相等
+                            //脜脨露脧戮脡脨脼赂脛脢卤录盲脫毛脨脗脨脼赂脛脢卤录盲脢脟路帽脧脿碌脠
                             if(md5FileJson[imgFile] !== mTime){
-                                //图片文件已改动 修改后缀为新修改时间
+                                //脥录脝卢脦脛录镁脪脩赂脛露炉 脨脼赂脛潞贸脳潞脦陋脨脗脨脼赂脛脢卤录盲
                                 md5FileJson[imgFile] = mTime;
                             }
                         }else{

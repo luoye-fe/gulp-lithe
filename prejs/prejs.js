@@ -1,5 +1,5 @@
 /*
- * desc:丑化预处理，先判断合并后的文件与旧文件MD5是否有变化，若有，则丑化替换，若无，则不丑化，提高效率
+ * desc:鲁贸禄炉脭陇麓娄脌铆拢卢脧脠脜脨露脧潞脧虏垄潞贸碌脛脦脛录镁脫毛戮脡脦脛录镁MD5脢脟路帽脫脨卤盲禄炉拢卢脠么脫脨拢卢脭貌鲁贸禄炉脤忙禄禄拢卢脠么脦脼拢卢脭貌虏禄鲁贸禄炉拢卢脤谩赂脽脨搂脗脢
  * author:yanglang
  * time:2016.04.08
  */
@@ -26,16 +26,16 @@ var main = function() {
                 jsfile = fs.readFileSync(f).toString();
                 try{
                     var md5 = crypto.createHash('md5').update(jsfile);
-                    var MD5 = md5.digest('hex');  //获取文件的MD5值
+                    var MD5 = md5.digest('hex');  //禄帽脠隆脦脛录镁碌脛MD5脰碌
                 }catch(e){
                     console.log('md5 file error:=============='+f);
                     throw new Error(e);
                 }
-                //判断json文件里是否已记录此文件的MD5
+                //脜脨露脧json脦脛录镁脌茂脢脟路帽脪脩录脟脗录麓脣脦脛录镁碌脛MD5
                 if(md5FileJson[f]){
-                    //判断旧文件的MD5与新修改的MD5是否相等
+                    //脜脨露脧戮脡脦脛录镁碌脛MD5脫毛脨脗脨脼赂脛碌脛MD5脢脟路帽脧脿碌脠
                     if(md5FileJson[f] !== MD5){
-                        //文件已改动 修改新MD5
+                        //脦脛录镁脪脩赂脛露炉 脨脼赂脛脨脗MD5
                         md5FileJson[f] = MD5;
                         flag = true;
                     }
