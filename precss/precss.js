@@ -1,5 +1,5 @@
 /*
- * desc:�ж�CSS�ڲ����õ�ͼƬ�ļ��Ƿ����޸ģ��������޸�ʱ�����׺��������ʹ�þɵġ�
+ * desc:判断CSS内部引用的图片文件是否有修改，若有则修改时间戳后缀，若无则使用旧的。
  * author:yanglang
  * time:2015.03.22
  */
@@ -33,13 +33,13 @@ var main = function() {
                         continue;
                     if (fs.existsSync(imgFile)) {
                         var stat = fs.statSync(imgFile);
-                        //��ȡͼƬ�ļ��޸�ʱ��
+                        //获取图片文件修改时间
                         var mTime = stat.mtime.getTime();
-                        //�ж�json�ļ����Ƿ��Ѽ�¼���ļ����޸�ʱ��
+                        //判断json文件里是否已记录此文件的修改时间
                         if(md5FileJson[imgFile]){
-                            //�жϾ��޸�ʱ�������޸�ʱ���Ƿ����
+                            //判断旧修改时间与新修改时间是否相等
                             if(md5FileJson[imgFile] !== mTime){
-                                //ͼƬ�ļ��ѸĶ� �޸ĺ�׺Ϊ���޸�ʱ��
+                                //图片文件已改动 修改后缀为新修改时间
                                 md5FileJson[imgFile] = mTime;
                             }
                         }else{
