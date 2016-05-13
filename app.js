@@ -31,7 +31,16 @@ var main = function(options) {
         litheOptions.alias = config.alias;
     }
     if (config.publicdeps) {
-        litheOptions.publicdeps = Object.keys(config.publicdeps);
+        var deps = Object.keys(config.publicdeps);
+        litheOptions.publicdeps = tool.uniq(
+            deps.map(function(current){
+                if (current.lastIndexOf(".js") < 0) {
+                    return current + ".js";
+                }else {
+                    return current;
+                }
+            })
+        );
     }
 
     var stream = through(function(file, encoding, callback) {

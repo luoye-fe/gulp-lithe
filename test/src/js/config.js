@@ -21,8 +21,12 @@
         alias: alias,
         publicpath : debug ? baseurl + 'js/' : baseurl + 'dist/',
         publicdeps : {
-            "vendors/zepto.js" : "vendors/zepto/v1/zepto.js",
-            "vendors/fastclick.js" : "vendors/fastclick/fastclick.js"
+            "vendors/zepto.js" : {
+                "vendors/zepto/v1/zepto.js" : []
+            },
+            "vendors/fastclick.js" : {
+                "vendors/fastclick/fastclick.js" : []
+            }
         }
     };
     if(global.define && isBrowser) {
