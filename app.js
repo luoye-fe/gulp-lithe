@@ -52,6 +52,10 @@ var main = function(options) {
         });
         requires.push(file.history[0]);
 
+        requires = requires.map(function(c) {
+            return c.split(Path.sep).join('/');
+        });
+
         if (litheOptions.publicdeps) {
             litheOptions.publicdeps.forEach(function(pd) {
                 requires.forEach(function(rd) {
