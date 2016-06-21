@@ -4,9 +4,13 @@ var gulpLithe = require('./app.js');
 
 var litheConfig = require('./test/src/js/config.js');  // lithe config
 
+var localcacheConfig = require('./test/src/js/localcacheconfig.js');
+
 var cssImageLink = gulpLithe.precss;
 
 var jsUglifyPre = gulpLithe.prejs;
+
+var localcache = gulpLithe.localcache;
 
 var uglify = require("gulp-uglify");
 
@@ -37,7 +41,7 @@ gulp.task('litheconcat', function() {
 });
 
 gulp.task('concat', function() {
-    return gulp.src(['./test/src/js/lithe.js','./test/src/js/config.js'])
+    return gulp.src(['./test/src/js/lithe.js'])
         .pipe(gulp.dest('./test/dist/js/'));
 });
 
@@ -52,6 +56,12 @@ gulp.task('uglify',['litheconcat','concat'], function() {
         .pipe(gulp.dest('./test/dist/js/'));
 });
 
+gulp.task('localcache', ['uglify'], function() {
+    return gulp.src('./test/src/js/conf/**/*')
+        .pipe(localcache(litheConfig, localcacheConfig))
+        .pipe(gulp.dest('./test/temp/dist/'));
+});
+
 gulp.task('uglifylithe',['litheconcat','concat'], function() {
     return gulp.src(['./test/src/js/lithe.js']).pipe(uglify({
         mangle: {
@@ -60,14 +70,18 @@ gulp.task('uglifylithe',['litheconcat','concat'], function() {
     })).pipe(gulp.dest('./test/dist/js/'));
 });
 
-gulp.task('uglifyconfig',['litheconcat','concat'], function() {
-    return gulp.src(['./test/dist/js/config.js']).pipe(uglify()).pipe(gulp.dest('./test/dist/js/'));
+gulp.task('uglifyconfig',['litheconcat','concat', 'localcache'], function() {
+    return gulp.src(['./test/temp/js/config.js']).pipe(uglify()).
+    pipe(localcache(litheConfig, localcacheConfig)).
+    pipe(gulp.dest('./test/dist/js/'));
 });
 
 gulp.task('moveimages', function() {
     return gulp.src('./test/src/images/**/*')
         .pipe(gulp.dest('./test/dist/images'));
 });
+
+
 
 gulp.task('styles', ['moveimages'], function() {
     return gulp.src('./test/src/css/**/*.css')
@@ -76,9 +90,9 @@ gulp.task('styles', ['moveimages'], function() {
         .pipe(gulp.dest('./test/dist/css'));
 });
 
-gulp.task('cleantemp',['uglify'], function(cb) {
+gulp.task('cleantemp',['uglify','uglifyconfig','uglifylithe','styles','moveimages'], function(cb) {
     return del(['./test/temp'],{force:true});
 });
 
-gulp.task('default',['litheconcat', 'uglify', 'uglifylithe', 'uglifyconfig', 'styles', 'cleantemp']);
+gulp.task('default',['litheconcat', 'uglify', 'uglifylithe', 'uglifyconfig', 'localcache', 'styles', 'cleantemp']);
 //gulp.task('default',['test']);

@@ -92,3 +92,4 @@ var main = function(options) {
 module.exports = main;
 exports.prejs = module.exports.prejs = require('./prejs/prejs.js');
 exports.precss = module.exports.precss= require('./precss/precss.js');
+exports.localcache = module.exports.localcache= require('./localcache/localcache.js');

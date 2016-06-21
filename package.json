@@ -13,6 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "del": "^2.2.0",
+    "escodegen": "^1.8.0",
+    "esprima": "^2.7.2",
+    "estraverse": "^4.2.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-minify-css": "^1.2.4",
