@@ -16,7 +16,7 @@
         publicpath = ""; //定义为公共模块路径
     }
     var mod = {
-        basepath: debug ? baseurl + 'js/' : baseurl + 'dist/',
+        basepath: debug ? baseurl + '/test/src/js/' : baseurl + '/test/dist/js/',
         timestamp: version,
         alias: alias,
         publicpath : debug ? baseurl + 'js/' : baseurl + 'dist/',
@@ -27,7 +27,11 @@
             "vendors/fastclick.js" : {
                 "vendors/fastclick/fastclick.js" : []
             }
-        }
+        },
+        localcache:true,
+        preload:[],
+        manifest:{},
+        timestamp:'1.2.2'
     };
     if(global.define && isBrowser) {
         define('config', function (require, exports, module) {
