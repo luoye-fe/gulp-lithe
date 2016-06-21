@@ -120,6 +120,10 @@ var main = function(config, lc) {
 			//console.log('jsonData...', jsonData);
 			main(path.join(config.basepath, lc.configFile));
 		}
+		else {
+			var configContent = require('fs').readFileSync(path.join(config.basepath, lc.configFile))
+			fs.writeFileSync(path.join(config.basepath + lc.tmpPath, lc.configFile), configContent);
+		}
 		callback();
 	}, function (callback){
 		callback();
