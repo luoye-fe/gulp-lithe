@@ -105,15 +105,16 @@ var main = function(config, lc) {
 										&& node.expression.type == estraverse.Syntax.CallExpression
 										&& node.expression.callee.name == 'define')
 								Object.keys(json).forEach(function(cur){
+									var fp = cur.split(path.sep).join('/')
 									//console.log("argumentslength...",node.expression.arguments)
-									if (cur.indexOf(node.expression.arguments[0].value) != -1) {
+									if (fp.indexOf(node.expression.arguments[0].value) != -1) {
 										jsonData[node.expression.arguments[0].value] = json[cur]
 									}
 								});
 							}
 						});
 					} catch (e) {
-						console.log('异常...',e);
+						console.log('异常...',e, f);
 					}
 				}
 			});
