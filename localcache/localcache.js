@@ -127,7 +127,7 @@ var main = function(config, lc) {
 		}
 		else {
 			var configContent = require('fs').readFileSync(path.join(config.basepath, lc.configFile))
-			fs.writeFileSync(path.join(config.basepath + lc.tmpPath, lc.configFile), configContent);
+			fs.writeFileSync(path.join(path.join(config.basepath, lc.tmpPath), lc.configFile), configContent);
 		}
 		callback();
 	}, function (callback){
