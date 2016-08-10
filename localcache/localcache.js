@@ -86,7 +86,7 @@ var main = function(config, lc) {
 				}
 			});
 			var code =escodegen.generate(ast);
-			fs.writeFileSync(path.join(config.basepath + lc.tmpPath, lc.configFile), code);
+			fs.writeFileSync(path.join(path.join(config.basepath, lc.tmpPath), lc.configFile), code);
 		}
 
 		if (config.localcache) {
@@ -108,7 +108,11 @@ var main = function(config, lc) {
 									var fp = cur.split(path.sep).join('/')
 									//console.log("argumentslength...",node.expression.arguments)
 									if (fp.indexOf(node.expression.arguments[0].value) != -1) {
-										jsonData[node.expression.arguments[0].value] = json[cur]
+										if (node.expression.arguments[0].value.lastIndexOf('.js') < 0 ) {
+											jsonData[node.expression.arguments[0].value + ".js"] = json[cur]
+										}else{
+											jsonData[node.expression.arguments[0].value] = json[cur]
+										}
 									}
 								});
 							}
